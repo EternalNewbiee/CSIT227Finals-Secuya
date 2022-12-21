@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class App extends JFrame{
     private JButton btnLoadPerson;
     private JButton btnReward;
 
+
     private List<Person> persons;
 
     public App() {
@@ -31,11 +34,14 @@ public class App extends JFrame{
         tfMonths.setEditable(false);
         tfSalary.setEditable(false);
         // TODO add implementations for all milestones here
+
         rbCustomer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 tfMonths.setEditable(false);
                 tfSalary.setEditable(false);
+                tfSalary.setText("");
+                tfMonths.setText("");
             }
         });
         rbClerk.addActionListener(new ActionListener() {
@@ -117,6 +123,7 @@ public class App extends JFrame{
                 tfMonths.setText("");
             }
         });
+
     }
 
     public static void main(String[] args) {
