@@ -28,6 +28,8 @@ public class App extends JFrame{
 
     private List<Person> persons;
 
+    public int index = 0;
+
     public App() {
         persons = new ArrayList<>();
         taPersons.setEditable(false);
@@ -70,10 +72,10 @@ public class App extends JFrame{
                         if( tfMonths.getText().isEmpty() == false||
                                 tfSalary.getText().isEmpty() == false) throw (new Exception());
                         Person p = new Person(name, age);
-                        taPersons.append("Customer - " + name + " (" + age + ")\n");
+                        taPersons.append((index+1)+ ". Customer - " + name + " (" + age + ")\n");
                         tfName.setText("");
                         tfAge.setText("");
-
+                        index++;
                     }
                     if (rbClerk.isSelected()) {
                         String name = tfName.getText();
@@ -84,11 +86,12 @@ public class App extends JFrame{
                         if( tfAge.getText().isEmpty() || tfName.getText().isEmpty() || tfMonths.getText().isEmpty() ||
                                 tfSalary.getText().isEmpty()) throw (new Exception());
                         Clerk c = new Clerk(name, age, month_worked, salary);
-                        taPersons.append("Clerk - " + name + " (" + age + ")\n");
+                        taPersons.append((index+1)+ ". Clerk - " + name + " (" + age + ")\n");
                         tfName.setText("");
                         tfAge.setText("");
                         tfSalary.setText("");
                         tfMonths.setText("");
+                        index++;
                     }
                     if (rbManager.isSelected()) {
                         String name = tfName.getText();
@@ -99,11 +102,12 @@ public class App extends JFrame{
                                 tfSalary.getText().isEmpty()) throw (new Exception());
                         if(age <= 0 || month_worked < 0 || salary < 0) throw (new Exception());
                         Manager m = new Manager(name, age, month_worked, salary);
-                        taPersons.append("Manager - " + name + " (" + age + ") \n");
+                        taPersons.append((index+1)+ ". Manager - " + name + " (" + age + ") \n");
                         tfName.setText("");
                         tfAge.setText("");
                         tfSalary.setText("");
                         tfMonths.setText("");
+                        index++;
                     }
                 }catch (NumberFormatException num){
                     JOptionPane.showMessageDialog(null, "INVALID INPUT", "ERROR", JOptionPane.ERROR_MESSAGE);
