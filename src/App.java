@@ -140,6 +140,7 @@ public class App extends JFrame{
                         cler = (Clerk) p;
                         cler.greet();
                         continue;
+                        //na apil ug commit sa last na commit hehe
                     }
                    p.greet();
                 }
