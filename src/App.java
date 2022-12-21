@@ -181,9 +181,8 @@ public class App extends JFrame{
                             if(pip instanceof Clerk) rbClerk.setSelected(true);
                             if(pip instanceof Manager) rbManager.setSelected(true);
                         }
-
                     }
-                    ctr++;
+                    ctr++;//
                 }
             }
         });
