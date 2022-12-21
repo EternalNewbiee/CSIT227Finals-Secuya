@@ -7,6 +7,11 @@ public class Employee extends Person{
         this.salary = salary;
     }
 
+    @Override
+    public String fullInfo() {
+        return (super.getName() +", "+ super.getAge() +", "+ months_worked + ", " + salary);
+    }
+
     public double thirteenthmonth(){
         double num = 12/months_worked;
         double ans = salary/num;

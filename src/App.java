@@ -3,6 +3,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -195,6 +198,12 @@ public class App extends JFrame{
             }
         });
 
+        btnSavePerson.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveFile();
+            }
+        });
     }
 
     public static void main(String[] args) {
@@ -226,6 +235,15 @@ public class App extends JFrame{
             JOptionPane.showMessageDialog(null, "Not an employee");
         } catch (Exception e){
             JOptionPane.showMessageDialog(null, "There are only 12 months in a year dummy");
+        }
+    }
+    void saveFile() {
+        try(BufferedWriter file = new BufferedWriter(new FileWriter("persons.txt"))) {
+            for(Person p: persons){
+                file.write(p.fullInfo());
+                file.newLine();
+            }
+        } catch (IOException e) {
         }
 
     }
