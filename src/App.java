@@ -3,9 +3,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -204,6 +202,13 @@ public class App extends JFrame{
                 saveFile();
             }
         });
+
+        btnLoadPerson.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadFile();
+            }
+        });
     }
 
     public static void main(String[] args) {
@@ -239,12 +244,32 @@ public class App extends JFrame{
     }
     void saveFile() {
         try(BufferedWriter file = new BufferedWriter(new FileWriter("persons.txt"))) {
+
+          file.write(taPersons.getText());
+        } catch (IOException e) {
+        }
+        try(BufferedWriter file = new BufferedWriter(new FileWriter("fullInfo.txt"))) {
             for(Person p: persons){
                 file.write(p.fullInfo());
                 file.newLine();
             }
         } catch (IOException e) {
         }
+    }
+    void loadFile() {
+        try(BufferedReader file = new BufferedReader(new FileReader("persons.txt"))) {
+            String str = file.readLine();
+//
+            while(str != null){
+                taPersons.append(str + "\n");
+                str = file.readLine();
+            }
+//            for(Person P: persons){
+//                p.name =
+//            }
 
+        } catch (IOException e) {
+
+        }
     }
 }
