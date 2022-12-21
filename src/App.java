@@ -106,6 +106,16 @@ public class App extends JFrame{
                     JOptionPane.showMessageDialog(null, "INVALID INPUT", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             }
+
+        });
+        btnClear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tfName.setText("");
+                tfAge.setText("");
+                tfSalary.setText("");
+                tfMonths.setText("");
+            }
         });
     }
 
