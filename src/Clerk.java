@@ -4,8 +4,10 @@ public class Clerk extends Employee{
     }
     @Override
     public void greet() {
-        super.greet();
-        System.out.print(" How may I help you?");
+        System.out.println("Hello my name is " + super.getName()+ " How may I help you?");
+    }
+    public String fullInfo() {
+        return "clerk," + super.fullInfo();
     }
 
 }

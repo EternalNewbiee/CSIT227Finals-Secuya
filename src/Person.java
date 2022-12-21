@@ -8,7 +8,7 @@ public class Person {
         this.age = age;
     }
     public String fullInfo(){
-        return (name+", "+ age);
+        return (name+","+ age);
     }
     public void greet(){
         System.out.println("Hello my name is " + this.name);

@@ -9,7 +9,7 @@ public class Employee extends Person{
 
     @Override
     public String fullInfo() {
-        return (super.getName() +", "+ super.getAge() +", "+ months_worked + ", " + salary);
+        return (super.getName() +","+ super.getAge() +","+ months_worked + "," + salary);
     }
 
     public double thirteenthmonth(){

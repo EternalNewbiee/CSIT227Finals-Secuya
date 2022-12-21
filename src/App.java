@@ -78,8 +78,8 @@ public class App extends JFrame{
                         if( tfAge.getText().isEmpty() || tfName.getText().isEmpty()) throw (new Exception());
                         if( tfMonths.getText().isEmpty() == false||
                                 tfSalary.getText().isEmpty() == false) throw (new Exception());
-                        Person p = new Person(name, age);
-                        persons.add(p);
+                        Customer c = new Customer(name, age);
+                        persons.add(c);
                         taPersons.append((index+1)+ ". Customer - " + name + " (" + age + ")\n");
                         tfName.setText("");
                         tfAge.setText("");
@@ -244,13 +244,24 @@ public class App extends JFrame{
     }
     void saveFile() {
         try(BufferedWriter file = new BufferedWriter(new FileWriter("persons.txt"))) {
-
           file.write(taPersons.getText());
         } catch (IOException e) {
         }
+
         try(BufferedWriter file = new BufferedWriter(new FileWriter("fullInfo.txt"))) {
             for(Person p: persons){
-                file.write(p.fullInfo());
+                if(p instanceof Manager){
+                    Manager m = (Manager) p;
+                    file.write(m.fullInfo());
+                }
+                if(p instanceof Clerk){
+                    Clerk cler = (Clerk) p;
+                    file.write(cler.fullInfo());
+                }
+                if(p instanceof Customer){
+                    Customer c = (Customer) p;
+                    file.write(c.fullInfo());
+                }
                 file.newLine();
             }
         } catch (IOException e) {
@@ -259,17 +270,33 @@ public class App extends JFrame{
     void loadFile() {
         try(BufferedReader file = new BufferedReader(new FileReader("persons.txt"))) {
             String str = file.readLine();
-//
             while(str != null){
                 taPersons.append(str + "\n");
                 str = file.readLine();
             }
-//            for(Person P: persons){
-//                p.name =
-//            }
 
         } catch (IOException e) {
-
+        }
+        try(BufferedReader file = new BufferedReader(new FileReader("fullInfo.txt"))) {
+            String str = file.readLine();
+            while(str != null){
+                String[] ln = str.split(",");
+                String name = ln[0];
+                if(ln[0].equals("cus")){
+                    Customer marion = new Customer(ln[1],Integer.parseInt(ln[2]));
+                    persons.add(marion);
+                }
+                if(ln[0].equals("man")){
+                    Manager josh = new Manager(ln[1],Integer.parseInt(ln[2]),Integer.parseInt(ln[2]),Double.parseDouble(ln[3]));
+                    persons.add(josh);
+                }
+                if(ln[0].equals("clerk")){
+                    Clerk cc = new Clerk(ln[1],Integer.parseInt(ln[2]),Integer.parseInt(ln[2]),Double.parseDouble(ln[3]));
+                    persons.add(cc);
+                }
+                str = file.readLine();
+            }
+        } catch (IOException e) {
         }
     }
 }
