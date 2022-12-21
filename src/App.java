@@ -40,6 +40,8 @@ public class App extends JFrame{
         rbCustomer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                tfName.setEditable(true);
+                tfAge.setEditable(true);
                 tfMonths.setEditable(false);
                 tfSalary.setEditable(false);
                 tfSalary.setText("");
@@ -49,6 +51,8 @@ public class App extends JFrame{
         rbClerk.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                tfName.setEditable(true);
+                tfAge.setEditable(true);
                 tfMonths.setEditable(true);
                 tfSalary.setEditable(true);
             }
@@ -56,6 +60,8 @@ public class App extends JFrame{
         rbManager.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                tfName.setEditable(true);
+                tfAge.setEditable(true);
                 tfMonths.setEditable(true);
                 tfSalary.setEditable(true);
             }
@@ -124,6 +130,11 @@ public class App extends JFrame{
         btnClear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                rbCustomer.setSelected(true);
+                tfName.setEditable(true);
+                tfAge.setEditable(true);
+                tfMonths.setEditable(false);
+                tfSalary.setEditable(false);
                 tfName.setText("");
                 tfAge.setText("");
                 tfSalary.setText("");
@@ -140,14 +151,50 @@ public class App extends JFrame{
                         cler = (Clerk) p;
                         cler.greet();
                         continue;
-                        //na apil ug commit sa last na commit hehe
                     }
                    p.greet();
                 }
             }
         });
 
+        btnLoad.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tfName.setEditable(false);
+                tfSalary.setEditable(false);
+                tfAge.setEditable(false);
+                tfMonths.setEditable(false);
+                int ctr = 1;
+                int pos = Integer.parseInt(tfLoad.getText());
+                for(Person pip: persons){
+                    if(pos==ctr){
+                        tfName.setText(pip.getName());
+                        String age = Integer.toString(pip.getAge());
+                        tfAge.setText(age);
+                        rbCustomer.setSelected(true);
+                        if(pip instanceof Employee){
+                            Employee emp = (Employee) pip;
+                            String salary = Double.toString(emp.getSalary());
+                            String months = Integer.toString(emp.getMonths_worked());
+                            tfMonths.setText(months);
+                            tfSalary.setText(salary);
+                            if(pip instanceof Clerk) rbClerk.setSelected(true);
+                            if(pip instanceof Manager) rbManager.setSelected(true);
+                        }
 
+                    }
+                    ctr++;
+                }
+            }
+        });
+
+        btnReward.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int pos = Integer.parseInt(tfLoad.getText());
+                giveReward(pos-1);
+            }
+        });
 
     }
 
@@ -159,7 +206,28 @@ public class App extends JFrame{
         app.setVisible(true);
     }
 
-    static void giveReward(int n) {
+    void giveReward(int n) {
+        try {
+            Person person = persons.get(n);
+            if(person instanceof Clerk) {
+                Clerk clerk = (Clerk) person;
+                if(clerk.getMonths_worked() == 0 ) throw new ArithmeticException();
+                if(clerk.getMonths_worked() > 12) throw new Exception();
+                JOptionPane.showMessageDialog(null, "Clerk " + clerk.getName() + " has been rewarded with " + String.format("%.2f", clerk.thirteenthmonth()));
+            } else if(person instanceof Manager) {
+                Manager manager = (Manager) person;
+                if (manager.getMonths_worked() == 0 ) throw new ArithmeticException();
+                JOptionPane.showMessageDialog(null, "Manager " + manager.getName() + " has been rewarded with " + String.format("%.2f", manager.thirteenthmonth()));
+            } else {
+                throw new IllegalArgumentException();
+            }
+        } catch (ArithmeticException e) {
+            JOptionPane.showMessageDialog(null, "Invalid months");
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, "Not an employee");
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null, "There are only 12 months in a year dummy");
+        }
 
     }
 }

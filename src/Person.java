@@ -10,4 +10,12 @@ public class Person {
     public void greet(){
         System.out.println("Hello my name is " + this.name);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
 }

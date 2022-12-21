@@ -8,6 +8,16 @@ public class Employee extends Person{
     }
 
     public double thirteenthmonth(){
-            return this.salary / (12 / months_worked);
+        double num = 12/months_worked;
+        double ans = salary/num;
+            return ans;
+    }
+
+    public int getMonths_worked() {
+        return months_worked;
+    }
+
+    public double getSalary() {
+        return salary;
     }
 }

@@ -5,6 +5,7 @@ public class Clerk extends Employee{
     @Override
     public void greet() {
         super.greet();
-        System.out.println("How may I help you?");
+        System.out.print(" How may I help you?");
     }
+
 }
