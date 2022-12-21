@@ -27,6 +27,7 @@ public class App extends JFrame{
 
     public App() {
         persons = new ArrayList<>();
+        taPersons.setEditable(false);
         tfMonths.setEditable(false);
         tfSalary.setEditable(false);
         // TODO add implementations for all milestones here
@@ -104,7 +105,6 @@ public class App extends JFrame{
                 catch(Exception ex){
                     JOptionPane.showMessageDialog(null, "INVALID INPUT", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
-
             }
         });
     }
