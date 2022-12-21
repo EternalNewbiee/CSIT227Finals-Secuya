@@ -3,9 +3,4 @@ public class Customer extends Person{
         super(name,age);
     }
 
-    @Override
-    public void greet() {
-        super.greet();
-        System.out.println("How may I help you?");
-    }
 }

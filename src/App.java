@@ -134,17 +134,19 @@ public class App extends JFrame{
         btnSayHi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                if(!this.name.isEmpty()) System.out.println("This is the " + name +":");
                 for(Person p:persons) {
-//                    if(p instanceof Clerk){
-//                        Clerk cler = new Clerk();
-//                        cler = (Clerk) p;
-//                        cler.greet();
-//                    }
+                    if(p instanceof Clerk){
+                        Clerk cler = (Clerk) p;
+                        cler = (Clerk) p;
+                        cler.greet();
+                        continue;
+                    }
                    p.greet();
                 }
             }
         });
+
+
 
     }
 
