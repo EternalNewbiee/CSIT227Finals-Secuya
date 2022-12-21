@@ -72,6 +72,7 @@ public class App extends JFrame{
                         if( tfMonths.getText().isEmpty() == false||
                                 tfSalary.getText().isEmpty() == false) throw (new Exception());
                         Person p = new Person(name, age);
+                        persons.add(p);
                         taPersons.append((index+1)+ ". Customer - " + name + " (" + age + ")\n");
                         tfName.setText("");
                         tfAge.setText("");
@@ -86,6 +87,7 @@ public class App extends JFrame{
                         if( tfAge.getText().isEmpty() || tfName.getText().isEmpty() || tfMonths.getText().isEmpty() ||
                                 tfSalary.getText().isEmpty()) throw (new Exception());
                         Clerk c = new Clerk(name, age, month_worked, salary);
+                        persons.add(c);
                         taPersons.append((index+1)+ ". Clerk - " + name + " (" + age + ")\n");
                         tfName.setText("");
                         tfAge.setText("");
@@ -102,6 +104,7 @@ public class App extends JFrame{
                                 tfSalary.getText().isEmpty()) throw (new Exception());
                         if(age <= 0 || month_worked < 0 || salary < 0) throw (new Exception());
                         Manager m = new Manager(name, age, month_worked, salary);
+                        persons.add(m);
                         taPersons.append((index+1)+ ". Manager - " + name + " (" + age + ") \n");
                         tfName.setText("");
                         tfAge.setText("");
@@ -125,6 +128,21 @@ public class App extends JFrame{
                 tfAge.setText("");
                 tfSalary.setText("");
                 tfMonths.setText("");
+            }
+        });
+
+        btnSayHi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                if(!this.name.isEmpty()) System.out.println("This is the " + name +":");
+                for(Person p:persons) {
+//                    if(p instanceof Clerk){
+//                        Clerk cler = new Clerk();
+//                        cler = (Clerk) p;
+//                        cler.greet();
+//                    }
+                   p.greet();
+                }
             }
         });
 
