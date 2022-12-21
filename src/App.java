@@ -27,6 +27,8 @@ public class App extends JFrame{
 
     public App() {
         persons = new ArrayList<>();
+        tfMonths.setEditable(false);
+        tfSalary.setEditable(false);
         // TODO add implementations for all milestones here
         rbCustomer.addActionListener(new ActionListener() {
             @Override
@@ -52,37 +54,55 @@ public class App extends JFrame{
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               if (rbCustomer.isSelected()){
-                   String name = tfName.getText();
-                   int age = Integer.parseInt(tfAge.getText());
-                   Person p = new Person(name,age);
-                   taPersons.append("Customer - " + name + " (" + age + ")\n");
-                   tfName.setText("");
-                   tfAge.setText("");
-               }
-               if (rbClerk.isSelected()){
-                   String name = tfName.getText();
-                   int age = Integer.parseInt(tfAge.getText());
-                   int month_worked = Integer.parseInt(tfMonths.getText());
-                   double salary = Double.parseDouble(tfSalary.getText());
-                   Clerk c = new Clerk(name,age,month_worked,salary);
-                   taPersons.append("Clerk - " + name + " (" + age + ")\n");
-                   tfName.setText("");
-                   tfAge.setText("");
-                   tfSalary.setText("");
-                   tfMonths.setText("");
-               }
-                if (rbManager.isSelected()){
-                    String name = tfName.getText();
-                    int age = Integer.parseInt(tfAge.getText());
-                    int month_worked = Integer.parseInt(tfMonths.getText());
-                    double salary = Double.parseDouble(tfSalary.getText());
-                    Manager m = new Manager(name,age,month_worked,salary);
-                    taPersons.append("Manager - " + name + " (" + age + ") \n");
-                    tfName.setText("");
-                    tfAge.setText("");
-                    tfSalary.setText("");
-                    tfMonths.setText("");
+                try {
+                    if (rbCustomer.isSelected()) {
+                        String name = tfName.getText();
+                        int age = Integer.parseInt(tfAge.getText());
+                        if(age <= 0) throw (new Exception());
+                        if( tfAge.getText().isEmpty() || tfName.getText().isEmpty()) throw (new Exception());
+                        if( tfMonths.getText().isEmpty() == false||
+                                tfSalary.getText().isEmpty() == false) throw (new Exception());
+                        Person p = new Person(name, age);
+                        taPersons.append("Customer - " + name + " (" + age + ")\n");
+                        tfName.setText("");
+                        tfAge.setText("");
+
+                    }
+                    if (rbClerk.isSelected()) {
+                        String name = tfName.getText();
+                        int age = Integer.parseInt(tfAge.getText());
+                        int month_worked = Integer.parseInt(tfMonths.getText());
+                        double salary = Double.parseDouble(tfSalary.getText());
+                        if(age <= 0 || month_worked < 0 || salary < 0) throw (new Exception());
+                        if( tfAge.getText().isEmpty() || tfName.getText().isEmpty() || tfMonths.getText().isEmpty() ||
+                                tfSalary.getText().isEmpty()) throw (new Exception());
+                        Clerk c = new Clerk(name, age, month_worked, salary);
+                        taPersons.append("Clerk - " + name + " (" + age + ")\n");
+                        tfName.setText("");
+                        tfAge.setText("");
+                        tfSalary.setText("");
+                        tfMonths.setText("");
+                    }
+                    if (rbManager.isSelected()) {
+                        String name = tfName.getText();
+                        int age = Integer.parseInt(tfAge.getText());
+                        int month_worked = Integer.parseInt(tfMonths.getText());
+                        double salary = Double.parseDouble(tfSalary.getText());
+                        if( tfAge.getText().isEmpty() || tfName.getText().isEmpty() || tfMonths.getText().isEmpty() ||
+                                tfSalary.getText().isEmpty()) throw (new Exception());
+                        if(age <= 0 || month_worked < 0 || salary < 0) throw (new Exception());
+                        Manager m = new Manager(name, age, month_worked, salary);
+                        taPersons.append("Manager - " + name + " (" + age + ") \n");
+                        tfName.setText("");
+                        tfAge.setText("");
+                        tfSalary.setText("");
+                        tfMonths.setText("");
+                    }
+                }catch (NumberFormatException num){
+                    JOptionPane.showMessageDialog(null, "INVALID INPUT", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
+                catch(Exception ex){
+                    JOptionPane.showMessageDialog(null, "INVALID INPUT", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
