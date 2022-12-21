@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.IllegalFormatException;
+import java.util.IllegalFormatFlagsException;
 import java.util.List;
 
 public class App extends JFrame{
@@ -67,17 +69,18 @@ public class App extends JFrame{
                 tfSalary.setEditable(true);
             }
         });
+
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    if(numCheck(tfName.getText())) throw new Exception("Name Invalid");
+
                     if (rbCustomer.isSelected()) {
                         String name = tfName.getText();
                         int age = Integer.parseInt(tfAge.getText());
-                        if(age <= 0) throw (new Exception());
-                        if( tfAge.getText().isEmpty() || tfName.getText().isEmpty()) throw (new Exception());
-                        if( tfMonths.getText().isEmpty() == false||
-                                tfSalary.getText().isEmpty() == false) throw (new Exception());
+                        if(age <= 0) throw new Exception("INVALID AGE");
+                        if( tfAge.getText().isEmpty() || tfName.getText().isEmpty()) throw new Exception("EMPTY TEXT FIELD");
                         Customer c = new Customer(name, age);
                         persons.add(c);
                         taPersons.append((index+1)+ ". Customer - " + name + " (" + age + ")\n");
@@ -90,9 +93,10 @@ public class App extends JFrame{
                         int age = Integer.parseInt(tfAge.getText());
                         int month_worked = Integer.parseInt(tfMonths.getText());
                         double salary = Double.parseDouble(tfSalary.getText());
-                        if(age <= 0 || month_worked < 0 || salary < 0) throw (new Exception());
+                        if(age <= 0) throw new Exception("INVALID AGE");
+                        if(month_worked < 0 || salary < 0) throw new Exception("INVALID INPUT: NEGATIVE VALUES");
                         if( tfAge.getText().isEmpty() || tfName.getText().isEmpty() || tfMonths.getText().isEmpty() ||
-                                tfSalary.getText().isEmpty()) throw (new Exception());
+                                tfSalary.getText().isEmpty()) throw new Exception("EMPTY TEXT FIELD");
                         Clerk c = new Clerk(name, age, month_worked, salary);
                         persons.add(c);
                         taPersons.append((index+1)+ ". Clerk - " + name + " (" + age + ")\n");
@@ -107,9 +111,10 @@ public class App extends JFrame{
                         int age = Integer.parseInt(tfAge.getText());
                         int month_worked = Integer.parseInt(tfMonths.getText());
                         double salary = Double.parseDouble(tfSalary.getText());
+                        if(age <= 0) throw new Exception("INVALID AGE");
+                        if(month_worked < 0 || salary < 0) throw new Exception("INVALID INPUT: NEGATIVE VALUES");
                         if( tfAge.getText().isEmpty() || tfName.getText().isEmpty() || tfMonths.getText().isEmpty() ||
-                                tfSalary.getText().isEmpty()) throw (new Exception());
-                        if(age <= 0 || month_worked < 0 || salary < 0) throw (new Exception());
+                                tfSalary.getText().isEmpty()) throw new Exception("EMPTY TEXT FIELD");
                         Manager m = new Manager(name, age, month_worked, salary);
                         persons.add(m);
                         taPersons.append((index+1)+ ". Manager - " + name + " (" + age + ") \n");
@@ -121,9 +126,12 @@ public class App extends JFrame{
                     }
                 }catch (NumberFormatException num){
                     JOptionPane.showMessageDialog(null, "INVALID INPUT", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    tfAge.setText("");
+                    tfSalary.setText("");
+                    tfMonths.setText("");
                     }
                 catch(Exception ex){
-                    JOptionPane.showMessageDialog(null, "INVALID INPUT", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
@@ -298,5 +306,13 @@ public class App extends JFrame{
             }
         } catch (IOException e) {
         }
+    }
+    boolean numCheck(String n){
+        try{
+            int num = Integer.parseInt(n);
+        }catch(Exception e){
+            return false;
+        }
+        return true;
     }
 }
